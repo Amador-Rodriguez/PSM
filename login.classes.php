@@ -18,6 +18,7 @@
                 exit();
 
             }
+            
 
             $values = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $checkPwd = password_verify($pwd,$values[0]["contraseña"]);
