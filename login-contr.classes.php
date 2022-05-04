@@ -17,7 +17,8 @@
         public function loginUser(){
             
             
-            $this->logUser($this->correo, $this->pwd);
+            $msg = $this->logUser($this->correo, $this->pwd);
+            return $msg;
         }
 
 

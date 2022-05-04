@@ -9,13 +9,13 @@
         $email = $datos_k['correo'];
         $pass = $datos_k['pwd'];
         
-        //$login = new LoginContr($email, $pass);
-        //$login->loginUser();
+        $login = new LoginContr("$email", "$pass");
+        $mensaje = $login->loginUser();
         //echo "Conexion exitosa";
         //header("location: ../index.php?error=none");
 
         $error = 0;
-        $mensaje = "Conexion exitosa";  
+        //$mensaje = "Conexion exitosa";  
         $datos = 0;
 
         $resp = [
