@@ -8,7 +8,7 @@
             if(!$stmt->execute(array($email))){
                 $stmt = null;
                 //echo("stmtfailedLogin");
-                return "ErrorStmt";
+                return 1;
                 exit();
             }
 
@@ -16,7 +16,7 @@
             if($stmt->rowCount() == 0){
                 $stmt = null;
                 //echo("userNotFound");
-                return "UserNotFound";
+                return 2;
                 exit();
 
             }
@@ -27,14 +27,16 @@
             if($checkPwd==false){
                 $stmt= null;
                // echo("WrongPassword");
-                return "WrongPassword";
+                return 3;
                 
                 exit();
             }
             
-            return "NoErrors";
 
             $stmt = null;
+            return 0;
+
+            
         }
         
     }

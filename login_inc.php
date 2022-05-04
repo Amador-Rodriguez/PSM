@@ -10,13 +10,29 @@
         $pass = $datos_k['pwd'];
         
         $login = new LoginContr("$email", "$pass");
-        $mensaje = $login->loginUser();
+        $error = $login->loginUser();
         //echo "Conexion exitosa";
         //header("location: ../index.php?error=none");
 
-        $error = 0;
+        //$error = 0;
         //$mensaje = "Conexion exitosa";  
         $datos = 0;
+
+        switch ($error){
+            case 1:{
+                $mensaje = "Error de ejecución";
+                break;
+            }
+            case 2:{
+                $mensaje = "Usuario no encontrado";
+                break;
+            }
+            case 3:{
+                $mensaje = "Contraseña incorrecta";
+                break;
+            }
+
+        }
 
         $resp = [
             "error"=>$error,
