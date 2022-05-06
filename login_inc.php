@@ -19,6 +19,10 @@
         $datos = 0;
 
         switch ($error){
+            case 0:{
+                $mensaje = "Conexion exitosa";
+                break;
+            }
             case 1:{
                 $mensaje = "Error de ejecución";
                 break;

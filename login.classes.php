@@ -24,7 +24,7 @@
 
             $values = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $checkPwd = password_verify($pwd,$values[0]["pwd"]);
-            if($checkPwd==false){
+            if($values[0]["pwd"]!=$pwd){
                 $stmt= null;
                // echo("WrongPassword");
                 return 3;
