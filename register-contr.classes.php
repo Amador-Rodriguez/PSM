@@ -1,5 +1,5 @@
 <?php
-    include("../classes/register.classes.php");
+    include("register.classes.php");
 
     class RegisterContr extends Register{
         private $correo;    
@@ -7,41 +7,31 @@
         private $telefono;
         private $pwd;
         private $confirm;
-        private $like_reportero;
+        private $apellidos;
+       
 
-        public function __construct($correo, $nombre, $telefono, $pwd, $confirm, $like_reportero) {
+        public function __construct($correo, $nombre, $apellidos,$telefono, $pwd, $confirm) {
             $this->correo = $correo;
             $this->nombre = $nombre;
+            $this->apellidos = $apellidos;
             $this->telefono = $telefono;
             $this->pwd = $pwd;
             $this->confirm = $confirm;
-            $this->like_reportero = $like_reportero;
+           
         }
 
         public function registerUser(){
             if($this->emptyInput()==false){
-                header("location: ../login.php?error=emptyInput");
-                exit();
+                return 1;
             }
             if($this->matchPwd()==false){
-                header("location: ../login.php?error=matchPwd");
-                exit();
+                return 2;
             }
-            
-
-            if($this->like_reportero==0){
-                if($this->userCheck()==false){
-                    header("location: ../login.php?error=userCheck");
-                    exit();
-                }
-                $this->insertUser($this->nombre, $this->correo, $this->telefono, $this->pwd);
-            }else{
-                if($this->reporteroCheck()==false){
-                    header("location: ../login.php?error=userCheck");
-                    exit();
-                }
-                $this->insertReportero($this->nombre, $this->correo, $this->telefono, $this->pwd);
+            if($this->userCheck()==false){
+                return 3;
             }
+            $msg = $this->insertUser($this->nombre,$this->apellidos, $this->correo, $this->telefono, $this->pwd);
+            return $msg;
         }
 
         private function matchPwd(){
@@ -66,20 +56,11 @@
             return $check;
         }
 
-        private function reporteroCheck(){
-            $check;
-            if(!$this->checkReportero($this->correo)){
-                $check = false;
-            }
-            else{
-                $check = true;
-            }
-            return $check;
-        }
+        
 
         private function emptyInput(){
             $check;
-            if(empty($this->pwd) || empty($this->confirm) ||empty($this->nombre) || empty($this->correo) || empty($this->telefono)){
+            if(empty($this->pwd) || empty($this->confirm) || empty($this->apellidos) ||empty($this->nombre) || empty($this->correo) || empty($this->telefono)){
                 $check = false;
             }
             else{
