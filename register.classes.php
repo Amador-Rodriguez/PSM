@@ -13,7 +13,19 @@
                 exit();
             }
             $stmt = null;
-            return 0;
+
+            $stmt = $this->connect()->prepare("SELECT * FROM usuario WHERE correo = ?;");
+            $stmt->execute(array($email));
+            $values=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt=null;
+            $data=array();
+            array_push($data, $values[0]["id_usuario"]);
+            array_push($data, $values[0]["nombre"]);
+            array_push($data, $values[0]["correo"]);
+            array_push($data, 0);
+            return $data;
+
+            
         }
 
         protected function checkUser($email){

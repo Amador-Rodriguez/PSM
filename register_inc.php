@@ -11,8 +11,11 @@
         $confirm_pass = $datos_k['v_contrasena'];
         
         $register = new RegisterContr($email, $nombre, $pass, $confirm_pass);
-        $error = $register->registerUser(); 
-        $datos =0;
+        $data = $register->registerUser(); 
+        $id_user = $data[0];
+        $name = $data[1];
+        $mail = $data[2];
+        $error = $data[3];
         
         switch ($error){
             case 0:{
@@ -45,7 +48,9 @@
         $resp = [
             "error"=>$error,
             "mensaje"=>$mensaje,
-            "datos"=>$datos
+            "id_user"=>$id_user,
+            "name"=>$name,
+            "mail"=>$mail
         ];
 
         header('Content-Type: application/json');

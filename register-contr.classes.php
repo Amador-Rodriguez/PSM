@@ -19,16 +19,31 @@
 
         public function registerUser(){
             if($this->emptyInput()==false){
-                return 1;
+                $data=array();
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, 1);
+                return $data;
             }
             if($this->matchPwd()==false){
-                return 2;
+                $data=array();
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, 2);
+                return $data;
             }
             if($this->userCheck()==false){
-                return 3;
+                $data=array();
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, null);
+                array_push($data, 3);
+                return $data;
             }
-            $msg = $this->insertUser($this->nombre, $this->correo, $this->pwd);
-            return $msg;
+            $data = $this->insertUser($this->nombre, $this->correo, $this->pwd);
+            return $data;
         }
 
         private function matchPwd(){
