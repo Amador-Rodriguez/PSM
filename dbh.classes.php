@@ -6,7 +6,7 @@
                 $server = "localhost";
                 $username = "root";
                 $password = "Ready74";
-                $database = "artagram";
+                $database = "Linventario";
                 $conn = new PDO("mysql:host=$server;dbname=$database;", $username, $password);
                 return $conn;
             }catch(PDOException $error){

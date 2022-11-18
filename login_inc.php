@@ -10,21 +10,25 @@
         $pass = $datos_k['pwd'];
         
         $login = new LoginContr("$email", "$pass");
-        $error = $login->loginUser();
+        $data = $login->loginUser();
+        $id_user = $data[0];
+        $name = $data[1];
+        $mail = $data[2];
+        $error = $data[3];
         //echo "Conexion exitosa";
         //header("location: ../index.php?error=none");
 
         //$error = 0;
         //$mensaje = "Conexion exitosa";  
-        $datos = 0;
+        
 
         switch ($error){
             case 0:{
-                $mensaje = "Conexion exitosa";
+                $mensaje = "Login exitoso";
                 break;
             }
             case 1:{
-                $mensaje = "Error de ejecución";
+                $mensaje = "Error del servidor";
                 break;
             }
             case 2:{
@@ -41,8 +45,11 @@
         $resp = [
             "error"=>$error,
             "mensaje"=>$mensaje,
-            "datos"=>$datos
+            "id_user"=>$id_user,
+            "name"=>$name,
+            "mail"=>$mail
         ];
+        header('Content-Type: application/json');
 
         echo json_encode($resp);
 

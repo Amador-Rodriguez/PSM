@@ -4,17 +4,14 @@
     class RegisterContr extends Register{
         private $correo;    
         private $nombre;
-        private $telefono;
         private $pwd;
         private $confirm;
-        private $apellidos;
+
        
 
-        public function __construct($correo, $nombre, $apellidos,$telefono, $pwd, $confirm) {
+        public function __construct($correo, $nombre, $pwd, $confirm) {
             $this->correo = $correo;
             $this->nombre = $nombre;
-            $this->apellidos = $apellidos;
-            $this->telefono = $telefono;
             $this->pwd = $pwd;
             $this->confirm = $confirm;
            
@@ -30,7 +27,7 @@
             if($this->userCheck()==false){
                 return 3;
             }
-            $msg = $this->insertUser($this->nombre,$this->apellidos, $this->correo, $this->telefono, $this->pwd);
+            $msg = $this->insertUser($this->nombre, $this->correo, $this->pwd);
             return $msg;
         }
 
@@ -60,7 +57,7 @@
 
         private function emptyInput(){
             $check;
-            if(empty($this->pwd) || empty($this->confirm) || empty($this->apellidos) ||empty($this->nombre) || empty($this->correo) || empty($this->telefono)){
+            if(empty($this->pwd) || empty($this->confirm) || empty($this->nombre) || empty($this->correo)){
                 $check = false;
             }
             else{

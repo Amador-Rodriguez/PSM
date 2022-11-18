@@ -1,10 +1,10 @@
 <?php
     include("dbh.classes.php");
     class Register extends Dbh{
-        protected function insertUser($name,$apellidos, $email, $phone, $pwd){
-            $stmt = $this->connect()->prepare('INSERT INTO usuario (nombre, apellidos ,correo, telefono, pwd) VALUES (?,?,?,?,?);');
+        protected function insertUser($name, $email, $pwd){
+            $stmt = $this->connect()->prepare('INSERT INTO usuario (nombre ,correo, pwd) VALUES (?,?,?);');
             $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
-            if(!$stmt->execute(array($name,$apellidos, $email, $phone, $pwdHashed))){
+            if(!$stmt->execute(array($name, $email, $pwdHashed))){
                 //echo "\nPDO::errorInfo():\n";
                 //print_r($this->errorInfo());
                 $stmt = null;

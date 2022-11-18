@@ -6,13 +6,11 @@
         $datos_k = json_decode(file_get_contents('php://input'), true);
 
         $nombre = $datos_k['nombre'];
-        $apellidos = $datos_k['apellidos'];
         $email = $datos_k['correo'];
-        $telefono = $datos_k['telefono'];
         $pass = $datos_k['contrasena'];
         $confirm_pass = $datos_k['v_contrasena'];
         
-        $register = new RegisterContr($email, $nombre, $apellidos, $telefono, $pass, $confirm_pass);
+        $register = new RegisterContr($email, $nombre, $pass, $confirm_pass);
         $error = $register->registerUser(); 
         $datos =0;
         
