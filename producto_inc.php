@@ -1,57 +1,69 @@
 <?php
- include("product-contr.classes.php");
+ include("producto-contr.classes.php");
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        $datos_k = json_decode(file_get_contents('php://input'), true);
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $id_usuario = $datos_k['id_usuario'];
+
+        $producto = new ProductoContr();
+        $data = $producto->GetAll($id_usuario);
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+
+    }else if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $datos_k = json_decode(file_get_contents('php://input'), true);
 
 
-        $email = $datos_k['correo'];
-        $pass = $datos_k['pwd'];
+        $id_producto = $datos_k['id_producto'];
+        $id_usuario = $datos_k['id_usuario'];
+        $cantidad = $datos_k['cantidad'];
+        $nombre = $datos_k['nombre'];
+        $precio_venta = $datos_k['precio_venta'];
+        $precio_compra = $datos_k['precio_compra'];
+        $descripcion = $datos_k['descripcion'];
         
-        $login = new LoginContr("$email", "$pass");
-        $data = $login->loginUser();
-        $id_user = $data[0];
-        $name = $data[1];
-        $mail = $data[2];
-        $error = $data[3];
-        //echo "Conexion exitosa";
-        //header("location: ../index.php?error=none");
-
-        //$error = 0;
-        //$mensaje = "Conexion exitosa";  
         
+        
+        $producto = new ProductoContr();
+        $producto->set($id_producto, $id_usuario, $cantidad, $nombre, $precio_venta, $precio_compra, $descripcion);
+        $data = $producto->addProducto();
 
-        switch ($error){
-            case 0:{
-                $mensaje = "Login exitoso";
-                break;
-            }
-            case 1:{
-                $mensaje = "Error del servidor";
-                break;
-            }
-            case 2:{
-                $mensaje = "Usuario no encontrado";
-                break;
-            }
-            case 3:{
-                $mensaje = "Contraseña incorrecta";
-                break;
-            }
-
-        }
-
-        $resp = [
-            "error"=>$error,
-            "mensaje"=>$mensaje,
-            "id_user"=>$id_user,
-            "name"=>$name,
-            "mail"=>$mail
-        ];
         header('Content-Type: application/json');
+        echo json_encode($data);
 
-        echo json_encode($resp);
+    }else if($_SERVER["REQUEST_METHOD"] == "PUT"){
+        $datos_k = json_decode(file_get_contents('php://input'), true);
+
+
+        $id_producto = $datos_k['id_producto'];
+        $id_usuario = $datos_k['id_usuario'];
+        $cantidad = $datos_k['cantidad'];
+        $nombre = $datos_k['nombre'];
+        $precio_venta = $datos_k['precio_venta'];
+        $precio_compra = $datos_k['precio_compra'];
+        $descripcion = $datos_k['descripcion'];
+        
+        
+        $producto = new ProductoContr();
+        $producto->set($id_producto, $id_usuario, $cantidad, $nombre, $precio_venta, $precio_compra, $descripcion);
+        $data = $producto->actualizarProducto();
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+
+    }else if($_SERVER["REQUEST_METHOD"] == "PATCH"){
+        
+        $datos_k = json_decode(file_get_contents('php://input'), true);
+        $id_producto = $datos_k['id_producto'];
+        $id_usuario = $datos_k['id_usuario'];
+
+        $producto = new ProductoContr();
+        $data = $producto->deleteProducto($id_producto, $id_usuario);
+        
+        header('Content-Type: application/json');
+        echo json_encode($data);
 
     }else{
         echo "error";
